@@ -14,6 +14,8 @@
 /* todo */
 #endif
 
+typedef unsigned error_t;
+
 #pragma pack(push, 1)
 typedef struct {
   uint32_t ident;
