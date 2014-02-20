@@ -1,6 +1,6 @@
 
-#ifndef __LIBALTAR_WIN_H__
-#define __LIBALTAR_WIN_H__
+/* Copyright (c) 2013, Acolyte Strike Force. All rights reserved. See LICENSE. */
 
-#endif /* __LIBALTAR_WIN_H__ */
+#include "altar/win/types.h"
+#include "altar/win/functions.h"
 

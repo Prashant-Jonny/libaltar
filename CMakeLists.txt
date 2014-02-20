@@ -13,6 +13,10 @@ set(PACKAGE_BUGREPORT "http://github.com/acolyte-sf/libaltar/issues")
 set(LIBALTAR_HEADERS_DIR "${PROJECT_SOURCE_DIR}/include")
 set(LIBALTAR_SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 
+if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+  add_definitions(-Wall -Wextra -pedantic)
+endif()
+
 include_directories("${LIBALTAR_HEADERS_DIR}")
 
 add_subdirectory("${LIBALTAR_HEADERS_DIR}")
