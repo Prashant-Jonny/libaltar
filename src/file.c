@@ -1,13 +1,87 @@
 
-/* Copyright (c) 2013, Acolyte Strike Force. All rights reserved. See LICENSE. */
+/* Copyright (c) 2014, Acolyte Strike Force. All rights reserved. See LICENSE. */
 
 #include "altar/win.h"
 
 static error_t win_analyze(win_file_t *file) {
-  error_t err = 0;
-
-l_error:
-  return err;
+  section_header_t *hdr, *hdr_end;
+  file->base = (section_header_t*)file->map;
+  if (SECTION_FORM != file->base->ident) {
+    return ERR_WIN_BAD_FILESIG;
+  }
+  hdr = file->base + 1;
+  hdr_end = (section_header_t*)((uintptr_t)file->base + file->base->size);
+  while (hdr < hdr_end) {
+    switch (hdr->ident) {
+      case SECTION_GENERATE:
+      file->gen = (section_generate_t*)hdr;
+      break;
+      case SECTION_OPTIONS:
+      file->options = (section_options_t*)hdr;
+      break;
+      case SECTION_EXTENSIONS:
+      file->extensions = (section_extensions_t*)hdr;
+      break;
+      case SECTION_SOUNDS:
+      file->sounds = (section_sounds_t*)hdr;
+      break;
+      case SECTION_SPRITES:
+      file->sprites = (section_sprites_t*)hdr;
+      break;
+      case SECTION_BACKGROUNDS:
+      file->backgrounds = (section_backgrounds_t*)hdr;
+      break;
+      case SECTION_PATHS:
+      file->paths = (section_paths_t*)hdr;
+      break;
+      case SECTION_SCRIPTS:
+      file->scripts = (section_scripts_t*)hdr;
+      break;
+      case SECTION_SHADERS:
+      file->shaders = (section_shaders_t*)hdr;
+      break;
+      case SECTION_FONTS:
+      file->fonts = (section_fonts_t*)hdr;
+      break;
+      case SECTION_TIMELINES:
+      file->timelines = (section_timelines_t*)hdr;
+      break;
+      case SECTION_OBJECTS:
+      file->objects = (section_objects_t*)hdr;
+      break;
+      case SECTION_ROOMS:
+      file->rooms = (section_rooms_t*)hdr;
+      break;
+      case SECTION_DATAFILES:
+      file->datafiles = (section_datafiles_t*)hdr;
+      break;
+      case SECTION_TEXINFO:
+      file->texinfo = (section_texinfo_t*)hdr;
+      break;
+      case SECTION_CODE:
+      file->code = (section_code_t*)hdr;
+      break;
+      case SECTION_VARIABLES:
+      file->variables = (section_variables_t*)hdr;
+      break;
+      case SECTION_FUNCTIONS:
+      file->functions = (section_functions_t*)hdr;
+      break;
+      case SECTION_STRINGS:
+      file->strings = (section_strings_t*)hdr;
+      break;
+      case SECTION_TEXTURES:
+      file->textures = (section_textures_t*)hdr;
+      break;
+      case SECTION_AUDIO:
+      file->audio = (section_audio_t*)hdr;
+      break;
+      default:
+      return ERR_UNKNOWN_SECTION;
+    }
+    hdr = (section_header_t*)((uintptr_t)(hdr + 1) + hdr->size);
+  }
+  return 0;
 }
 
 error_t win_open(const char* fname, win_file_t *out) {
