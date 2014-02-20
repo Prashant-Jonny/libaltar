@@ -16,8 +16,9 @@
 
 typedef unsigned error_t;
 
-#define ERR_WIN_OPEN_FAILED       1
-#define ERR_WIN_MAP_FAILED        2
+#define ERR_WIN_INVALID_ARGS      1
+#define ERR_WIN_OPEN_FAILED       2
+#define ERR_WIN_MAP_FAILED        3
 
 #pragma pack(push, 1)
 typedef struct {
