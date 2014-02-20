@@ -20,7 +20,8 @@ typedef unsigned error_t;
 #define ERR_WIN_OPEN_FAILED       2
 #define ERR_WIN_MAP_FAILED        3
 #define ERR_WIN_BAD_FILESIG       4
-#define ERR_UNKNOWN_SECTION       5
+#define ERR_WIN_UNKNOWN_SECTION   5
+#define ERR_WIN_INVALID_ID        6
 
 #define SECTION_FORM              0x4D524F46
 #define SECTION_GENERATE          0x384E4547
@@ -45,6 +46,8 @@ typedef unsigned error_t;
 #define SECTION_TEXTURES          0x52545854
 #define SECTION_AUDIO             0x4F445541
 
+/* Packed structures: structures which map internally to the file format */
+
 #pragma pack(push, 1)
 typedef struct {
   uint32_t ident;
@@ -59,7 +62,7 @@ typedef struct {
   uint32_t config_offset;
   uint32_t last_obj;
   uint32_t last_tile;
-  uint32_t gameid;
+  uint32_t game_id;
   uint32_t padding[4];
   uint32_t name_offset;
   uint32_t major;
@@ -77,11 +80,9 @@ typedef struct {
   uint32_t sizeable : 1;
   uint32_t screen_key : 1;
   uint32_t sync_vertex_3 : 1;
-  uint32_t studio_version_1 : 1;
-  uint32_t studio_version_2 : 1;
-  uint32_t studio_version_3 : 1;
+  uint32_t studio_version : 3;
   uint32_t steam_enabled : 1;
-  uint32_t saveloc : 1;
+  uint32_t localdata_enabled : 1;
 } section_generate_t;
 
 typedef struct {
@@ -215,6 +216,8 @@ typedef struct {
 } audio_entry_t;
 #pragma pack(pop)
 
+/* Unpacked structures: structures which are exposed via the API */
+
 typedef struct {
 #ifdef _WIN32
   HANDLE fd, mapd;
@@ -247,6 +250,32 @@ typedef struct {
   section_textures_t *textures;
   section_audio_t *audio;
 } win_file_t;
+
+typedef struct {
+  uint32_t length;
+  const char *data;
+} string_info_t;
+
+typedef struct {
+  unsigned debug;
+  string_info_t name;
+  string_info_t filename;
+  string_info_t configuration;
+  unsigned last_obj;
+  unsigned last_tile;
+  unsigned game_id;
+  unsigned major;
+  unsigned minor;
+  unsigned release;
+  unsigned build;
+  unsigned interpolate;
+  unsigned show_cursor;
+  unsigned sizeable;
+  unsigned screen_key;
+  unsigned studio_version;
+  unsigned steam_enabled;
+  unsigned localdata_enabled;
+} generate_info_t;
 
 #endif /* __ALTAR_WIN_TYPES_H__ */
 

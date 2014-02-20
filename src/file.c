@@ -3,6 +3,7 @@
 
 #include "altar/win.h"
 
+
 static error_t win_analyze(win_file_t *file) {
   section_header_t *hdr, *hdr_end;
   file->base = (section_header_t*)file->map;
@@ -77,7 +78,7 @@ static error_t win_analyze(win_file_t *file) {
       file->audio = (section_audio_t*)hdr;
       break;
       default:
-      return ERR_UNKNOWN_SECTION;
+      return ERR_WIN_UNKNOWN_SECTION;
     }
     hdr = (section_header_t*)((uintptr_t)(hdr + 1) + hdr->size);
   }
