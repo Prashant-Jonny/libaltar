@@ -253,8 +253,15 @@ typedef struct {
 
 typedef struct {
   uint32_t length;
-  const char *data;
+  const char *bytes;
 } string_info_t;
+
+typedef struct {
+  uint32_t length;
+  const uint8_t *bytes;
+} data_info_t;
+
+/* png needs its own, because otherwise width/height is awkward */
 
 typedef struct {
   unsigned debug;
@@ -276,6 +283,12 @@ typedef struct {
   unsigned steam_enabled;
   unsigned localdata_enabled;
 } generate_info_t;
+
+typedef struct {
+  unsigned width;
+  unsigned height;
+  data_info_t data;
+} texture_info_t;
 
 #endif /* __ALTAR_WIN_TYPES_H__ */
 

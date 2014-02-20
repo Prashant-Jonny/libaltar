@@ -4,15 +4,29 @@
 #include "altar/win.h"
 
 
+static void *win_ptr_from_offset(win_file_t *in, uintptr_t offset) {
+  return (void*)((uintptr_t)in->base + offset);
+}
+
 static void win_string_from_offset(win_file_t *in, uintptr_t offset, string_info_t *out) {
-  string_entry_t *str;
-  if ((uintptr_t)NULL == offset) {
+  const string_entry_t *str;
+  if (!offset) {
     out->length = 0;
-    out->data = "";
+    out->bytes = "";
   }
-  str = (string_entry_t*)((uintptr_t)in->base + offset);
+  str = (string_entry_t*)win_ptr_from_offset(in, offset);
   out->length = str->length;
-  out->data = (const char*)&str->data;
+  out->bytes = (char*)&str->data;
+}
+
+static void win_png_from_offset(win_file_t *in, uintptr_t offset, unsigned len, data_info_t *out) {
+  static uint8_t null = 0;
+  if (!offset) {
+    out->length = 0;
+    out->bytes = &null;
+  }
+  out->length = len;
+  out->bytes = (uint8_t*)win_ptr_from_offset(in, offset); /** todo **/
 }
 
 error_t win_get_generate_info(win_file_t *in, generate_info_t *out) {
@@ -48,6 +62,23 @@ error_t win_get_string_info(win_file_t *in, unsigned id, string_info_t *out) {
     return ERR_WIN_INVALID_ID;
   }
   win_string_from_offset(in, (&in->strings->offsets)[id], out);
+  return 0;
+}
+
+error_t win_get_texture_info(win_file_t *in, unsigned id, texture_info_t *out) {
+  const tex_entry_t *tex;
+  const tex_entry_png_t *png;
+  if (NULL == in) {
+    return ERR_WIN_INVALID_ARGS;
+  }
+  if (id > in->textures->count) {
+    return ERR_WIN_INVALID_ID;
+  }
+  tex = (tex_entry_t*)win_ptr_from_offset((&in->textures->offsets)[id]);
+  png = (tex_entry_png_t*)win_ptr_from_offset(t_tex->offset);
+  out->width = letobe32(png->width);
+  out->height = letobe32(png->height);
+  /* ... */
   return 0;
 }
 
