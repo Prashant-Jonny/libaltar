@@ -8,13 +8,16 @@
 
 #ifdef _WIN32
 #include <windows.h>
-#elif __unix__
-/* todo */
-#elif __linux__
-/* todo */
+#else
+#include <sys/stat.h>
+#include <sys/fcntl.h>
+#include <sys/mman.h>
 #endif
 
 typedef unsigned error_t;
+
+#define ERR_WIN_OPEN_FAILED       1
+#define ERR_WIN_MAP_FAILED        2
 
 #pragma pack(push, 1)
 typedef struct {
@@ -30,9 +33,12 @@ typedef struct {
 
 typedef struct {
 #ifdef _WIN32
-  HANDLE fd, map;
+  HANDLE fd, mapd;
+  LPVOID map;
 #else
   int fd;
+  struct stat finfo;
+  void *map;
 #endif
   win_file_header_t *base;
 } win_file_t;
