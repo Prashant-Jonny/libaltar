@@ -26,7 +26,7 @@ error_t win_open(const char* fname, win_file_t *out) {
   out->map = MapViewOfFile(out->mapd, FILE_MAP_READ, 0, 0, 0);
   if (NULL == out->base) {
     err = ERR_WIN_MAP_FAILED;
-    goto l_cleanup_map;
+    goto l_cleanup_mapd;
   }
 #else
   out->fd = open(fname, O_RDONLY);
@@ -51,6 +51,7 @@ error_t win_open(const char* fname, win_file_t *out) {
 #ifdef _WIN32
 l_cleanup_map:
   UnmapViewOfFile(out->map);
+l_cleanup_mapd:
   CloseHandle(out->mapd);
 l_cleanup_fd:
   CloseHandle(out->fd);
