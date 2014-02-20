@@ -1,0 +1,12 @@
+
+*
+!**/
+!**/CMakeLists.txt
+!**/*.md
+!/.gitignore
+!/.gitattributes
+!/.travis.yml
+!/LICENSE
+!/src/**/*.c
+!/include/**/*.h
+
