@@ -22,5 +22,5 @@ include_directories("${LIBALTAR_HEADERS_DIR}")
 add_subdirectory("${LIBALTAR_HEADERS_DIR}")
 add_subdirectory("${LIBALTAR_SRC_DIR}")
 
-add_library(libaltar ${LIBALTAR_SRC_FILES} ${LIBALTAR_HEADER_FILES})
+add_library(altar ${LIBALTAR_SRC_FILES} ${LIBALTAR_HEADER_FILES})
 
