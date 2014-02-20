@@ -3,7 +3,7 @@
 
 #include "altar/win.h"
 
-error_t win_analyze(win_file_t *file) {
+static error_t win_analyze(win_file_t *file) {
   error_t err = 0;
 
 l_error:
