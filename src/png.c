@@ -1,9 +1,7 @@
 
 /* Copyright (c) 2014, Acolyte Strike Force. All rights reserved. See LICENSE. */
 
-#include "altar/win/api.h"
 #include "altar/win/png.h"
-#include "altar/win/util.h"
 
 
 static uintptr_t win_png_length(const png_header_t *png) {

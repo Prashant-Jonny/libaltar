@@ -1,10 +1,10 @@
 
 /* Copyright (c) 2014, Acolyte Strike Force. All rights reserved. See LICENSE. */
 
-#include "altar/win.h"
+#include "altar/win/file.h"
 
 
-static error_t win_analyze(win_file_t *file) {
+static error_t win_bookmark(win_file_t *file) {
   section_header_t *hdr, *hdr_end;
   file->base = (section_header_t*)file->map;
   if (SECTION_FORM != file->base->ident) {
@@ -14,8 +14,8 @@ static error_t win_analyze(win_file_t *file) {
   hdr_end = (section_header_t*)((uintptr_t)file->base + file->base->size);
   while (hdr < hdr_end) {
     switch (hdr->ident) {
-      case SECTION_GENERATE:
-      file->gen = (section_generate_t*)hdr;
+      case SECTION_GENERAL:
+      file->gen = (section_general_t*)hdr;
       break;
       case SECTION_OPTIONS:
       file->options = (section_options_t*)hdr;
@@ -124,7 +124,7 @@ error_t win_open(const char* fname, win_file_t *out) {
     goto l_error;
   }
 #endif
-  if ((err = win_analyze(out))) {
+  if ((err = win_bookmark(out))) {
     goto l_error;
   }
   return 0;

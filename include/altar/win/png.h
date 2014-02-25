@@ -4,7 +4,9 @@
 #ifndef __ALTAR_WIN_PNG_H__
 #define __ALTAR_WIN_PNG_H__
 
-#include "altar/win/types.h"
+#include "altar/util.h"
+#include "altar/win/file.h"
+
 
 #define PNG_CHUNK_END             0x444E4549
 

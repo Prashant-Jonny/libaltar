@@ -14,6 +14,7 @@
 #include <sys/mman.h>
 #endif
 
+
 typedef unsigned error_t;
 
 #define ERR_WIN_INVALID_ARGS      1
@@ -22,29 +23,6 @@ typedef unsigned error_t;
 #define ERR_WIN_BAD_FILESIG       4
 #define ERR_WIN_UNKNOWN_SECTION   5
 #define ERR_WIN_INVALID_ID        6
-
-#define SECTION_FORM              0x4D524F46
-#define SECTION_GENERATE          0x384E4547
-#define SECTION_OPTIONS           0x4E54504F
-#define SECTION_EXTENSIONS        0x4E545845
-#define SECTION_SOUNDS            0x444E4F53
-#define SECTION_SPRITES           0x54525053
-#define SECTION_BACKGROUNDS       0x444E4742
-#define SECTION_PATHS             0x48544150
-#define SECTION_SCRIPTS           0x54504353
-#define SECTION_SHADERS           0x52444853
-#define SECTION_FONTS             0x544E4F46
-#define SECTION_TIMELINES         0x4E4C4D54
-#define SECTION_OBJECTS           0x544A424F
-#define SECTION_ROOMS             0x4D4F4F52
-#define SECTION_DATAFILES         0x4C464144
-#define SECTION_TEXINFO           0x47415054
-#define SECTION_CODE              0x45444F43
-#define SECTION_VARIABLES         0x49524156
-#define SECTION_FUNCTIONS         0x434E5546
-#define SECTION_STRINGS           0x47525453
-#define SECTION_TEXTURES          0x52545854
-#define SECTION_AUDIO             0x4F445541
 
 /* Packed structures: structures which map internally to the file format */
 
@@ -83,12 +61,51 @@ typedef struct {
   uint32_t studio_version : 3;
   uint32_t steam_enabled : 1;
   uint32_t localdata_enabled : 1;
-} section_generate_t;
+  uint32_t info_mask : 18;
+  uint32_t license_key_crc32;
+  uint32_t license_md5_offset;
+  uint64_t timestamp;
+  uint32_t display_offset;
+  uint64_t active_targets;
+} section_general_t;
 
 typedef struct {
   section_header_t header;
   uint32_t fullscreen;
   uint32_t interpolate;
+  uint32_t use_new_audio;
+  uint32_t borderless;
+  uint32_t show_cursor;
+  uint32_t scale;
+  uint32_t sizeable;
+  uint32_t stay_on_top;
+  uint32_t window_color;
+  uint32_t change_resolution;
+  uint32_t color_depth;
+  uint32_t resolution;
+  uint32_t frequency;
+  uint32_t buttonless;
+  uint32_t sync_vertex;
+  uint32_t fullscreen_key;
+  uint32_t help_key;
+  uint32_t quit_key;
+  uint32_t save_key;
+  uint32_t screenshot_key;
+  uint32_t close_secondary;
+  uint32_t process_priority;
+  uint32_t freeze_lose_focus;
+  uint32_t show_load_progress;
+  uint32_t mbe_splash_bg_offset;
+  uint32_t mbe_splash_fg_offset;
+  uint32_t mbe_splash_ld_offset;
+  uint32_t load_transparency;
+  uint32_t load_alpha;
+  uint32_t scale_load_progress;
+  uint32_t display_errors;
+  uint32_t write_errors;
+  uint32_t abort_errors;
+  uint32_t treat_uninit_zero;
+  uint32_t creation_event_order;
 } section_options_t;
 
 typedef struct {
@@ -222,7 +239,7 @@ typedef struct {
   void *map;
 #endif
   section_header_t *base;
-  section_generate_t *gen;
+  section_general_t *gen;
   section_options_t *options;
   section_extensions_t *extensions;
   section_sounds_t *sounds;

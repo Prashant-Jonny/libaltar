@@ -1,7 +1,7 @@
 
 /* Copyright (c) 2014, Acolyte Strike Force. All rights reserved. See LICENSE. */
 
-#include "altar/win/util.h"
+#include "altar/util.h"
 
 
 uint32_t letobe32(uint32_t val) {
