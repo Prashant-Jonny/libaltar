@@ -200,12 +200,6 @@ typedef struct {
 } tex_entry_t;
 
 typedef struct {
-  uint32_t padding[4];
-  uint32_t width;
-  uint32_t height;
-} tex_entry_png_t;
-
-typedef struct {
   section_header_t header;
   uint32_t count;
   uint32_t offsets;
@@ -262,9 +256,9 @@ typedef struct {
 } data_info_t;
 
 typedef struct {
-  tex_entry_png_t *base;
   unsigned width;
   unsigned height;
+  data_info_t data;
 } png_info_t;
 
 typedef struct {

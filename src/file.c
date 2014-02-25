@@ -163,3 +163,7 @@ void win_close(win_file_t* file) {
 #endif
 }
 
+void *win_ptr_from_offset(win_file_t *in, uintptr_t offset) {
+  return (void*)((uintptr_t)in->base + offset);
+}
+
