@@ -252,42 +252,23 @@ typedef struct {
 } win_file_t;
 
 typedef struct {
-  uint32_t length;
+  unsigned length;
   const char *bytes;
 } string_info_t;
 
 typedef struct {
-  uint32_t length;
+  unsigned length;
   const uint8_t *bytes;
 } data_info_t;
 
-/* png needs its own, because otherwise width/height is awkward */
-
 typedef struct {
-  unsigned debug;
-  string_info_t name;
-  string_info_t filename;
-  string_info_t configuration;
-  unsigned last_obj;
-  unsigned last_tile;
-  unsigned game_id;
-  unsigned major;
-  unsigned minor;
-  unsigned release;
-  unsigned build;
-  unsigned interpolate;
-  unsigned show_cursor;
-  unsigned sizeable;
-  unsigned screen_key;
-  unsigned studio_version;
-  unsigned steam_enabled;
-  unsigned localdata_enabled;
-} generate_info_t;
-
-typedef struct {
+  tex_entry_png_t *base;
   unsigned width;
   unsigned height;
-  data_info_t data;
+} png_info_t;
+
+typedef struct {
+  png_info_t png;
 } texture_info_t;
 
 #endif /* __ALTAR_WIN_TYPES_H__ */
