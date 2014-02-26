@@ -19,7 +19,7 @@ error_t win_get_string_info(win_file_t *in, unsigned id, string_info_t *out) {
   if (!in) {
     return ERR_WIN_INVALID_ARGS;
   }
-  if (id > in->strings->count) {
+  if (id >= in->strings->count) {
     return ERR_WIN_INVALID_ID;
   }
   return win_string_from_offset(in, (&in->strings->offsets)[id], out);

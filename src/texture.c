@@ -9,7 +9,7 @@ error_t win_get_texture_info(win_file_t *in, unsigned id, texture_info_t *out) {
   if (!in) {
     return ERR_WIN_INVALID_ARGS;
   }
-  if (id > in->textures->count) {
+  if (id >= in->textures->count) {
     return ERR_WIN_INVALID_ID;
   }
   tex = (tex_entry_t*)win_ptr_from_offset(in, (&in->textures->offsets)[id]);
