@@ -224,6 +224,7 @@ typedef struct {
 
 typedef struct {
   uint32_t length;
+  uint8_t data;
 } audio_entry_t;
 #pragma pack(pop)
 
@@ -281,6 +282,10 @@ typedef struct {
 typedef struct {
   png_info_t png;
 } texture_info_t;
+
+typedef struct {
+  data_info_t riff;
+} audio_info_t;
 
 #endif /* __ALTAR_WIN_TYPES_H__ */
 
