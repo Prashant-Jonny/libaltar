@@ -6,7 +6,7 @@
 
 error_t win_get_texture_info(win_file_t *in, unsigned id, texture_info_t *out) {
   const tex_entry_t *tex;
-  if (NULL == in) {
+  if (!in) {
     return ERR_WIN_INVALID_ARGS;
   }
   if (id > in->textures->count) {

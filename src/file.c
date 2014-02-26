@@ -87,7 +87,7 @@ static error_t win_bookmark(win_file_t *file) {
 
 error_t win_open(const char* fname, win_file_t *out) {
   error_t err;
-  if (NULL == fname || NULL == out) {
+  if (!fname || !out) {
     return ERR_WIN_INVALID_ARGS;
   }
 #ifdef _WIN32
