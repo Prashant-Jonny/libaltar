@@ -1,10 +1,10 @@
 
 set(LIBALTAR_SRC_FILES
-  "${CMAKE_CURRENT_SOURCE_DIR}/util.c"
-  "${CMAKE_CURRENT_SOURCE_DIR}/file.c"
-  "${CMAKE_CURRENT_SOURCE_DIR}/string.c"
-  "${CMAKE_CURRENT_SOURCE_DIR}/png.c"
-  "${CMAKE_CURRENT_SOURCE_DIR}/texture.c"
-  "${CMAKE_CURRENT_SOURCE_DIR}/audio.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/win/util.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/win/file.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/win/string.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/win/png.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/win/texture.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/win/audio.c"
 PARENT_SCOPE)
 
